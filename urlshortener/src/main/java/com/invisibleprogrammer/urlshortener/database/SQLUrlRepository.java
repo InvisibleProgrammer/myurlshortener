@@ -7,6 +7,8 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import com.invisibleprogrammer.urlshortener.domain.ShortUrl;
+
 @Repository
 public class SQLUrlRepository implements UrlRepository
 {
@@ -27,5 +29,29 @@ public class SQLUrlRepository implements UrlRepository
         .addValue("fullUrl", fullUrl)
         .addValue("shortUrl", shortUrl);
     template.update(sql,param, holder);
+  }
+
+  @Override
+  public ShortUrl[] getAll()
+  {
+    final String sql = "select * from shortUrls;";
+
+    var shortUrls = template.query(sql, new ShortUrlRowMapper());
+
+    return shortUrls.toArray(new ShortUrl[shortUrls.size()]);
+  }
+
+  @Override
+  public ShortUrl get(final String id)
+  {
+    final String sql = "select * from shortUrls where shortUrl = '" + id + "';";
+
+    var shortUrls = template.query(sql, new ShortUrlRowMapper());
+
+    if (shortUrls.size() == 0){
+      return null;
+    }
+
+    return shortUrls.get(0);
   }
 }

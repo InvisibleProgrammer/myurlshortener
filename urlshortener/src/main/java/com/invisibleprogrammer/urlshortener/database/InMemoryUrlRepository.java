@@ -20,4 +20,16 @@ public class InMemoryUrlRepository implements UrlRepository
     ShortUrl newShortUrl = new ShortUrl(fullUrl, shortUrl);
     shortUrls.add(newShortUrl);
   }
+
+  @Override
+  public ShortUrl[] getAll()
+  {
+    return shortUrls.toArray(new ShortUrl[shortUrls.size()]);
+  }
+
+  @Override
+  public ShortUrl get(final String id)
+  {
+    return null;
+  }
 }

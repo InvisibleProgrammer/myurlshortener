@@ -1,12 +1,15 @@
-import React from 'react';
+import React from "react";
 
-function MostRecentRandomUrls() {
+function MostRecentRandomUrls(props) {
   return (
     <>
       <ul>
-          <li><div>https://facebook.com</div><div>http://localhost/lskjdfsld</div></li>
-          <li><div>https://logmein.com</div><div>http://localhost/saslkdfdsf</div></li>
-          <li><div>https://google.com</div><div>http://localhost/0394sddf</div></li>
+        {props.urls.map((shortUrl) => (
+          <li key={shortUrl.shortUrl}>
+            <div>{shortUrl.fullUrl}</div>
+            <div>{shortUrl.shortUrl}</div>
+          </li>
+        ))}
       </ul>
     </>
   );
